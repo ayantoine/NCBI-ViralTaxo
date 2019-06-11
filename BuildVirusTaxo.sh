@@ -95,7 +95,7 @@ fi
 
 #sort file for easy join in TINAP-workflow
 sort -k 1,1 nucl_gb.accession2taxo.tsv > nucl_gb.accession2taxo.sort.tsv
-mv nucl_gb.accession2taxo.sort.tsv > nucl_gb.accession2taxo.tsv
+mv nucl_gb.accession2taxo.sort.tsv nucl_gb.accession2taxo.tsv
 sort -k 1,1 prot.accession2taxo.tsv > prot.accession2taxo.sort.tsv
-mv prot.accession2taxo.sort.tsv > prot.accession2taxo.tsv
+mv prot.accession2taxo.sort.tsv prot.accession2taxo.tsv
 
