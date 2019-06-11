@@ -1,8 +1,10 @@
 #! src/bash
 
+# bash PATH/TO/BuildVirusTaxo.sh PATH/TO/
+
 set -e #if a command crash, the script interrupt immediatly
 
-SDIR="/home/antoine/Documents/Python/TINAP"
+SDIR=$1
 GENBANK_FTP="ftp://ftp.ncbi.nlm.nih.gov/genbank/"
 NTarget="nucl_gb.accession2taxid"
 PTarget="prot.accession2taxid"
@@ -16,12 +18,12 @@ bash $SDIR/DownloadTaxonomy.sh
 if [ ! -f Taxo.accurate ] ; then
 	#Tax file have modification since last time
 	#Store the old version
-	if [ -f TaxId2Taxo.txt ] ; then
-		scp TaxId2Taxo.txt TaxId2Taxo.past.txt
+	if [ -f TaxId2Taxo.tsv ] ; then
+		scp TaxId2Taxo.tsv TaxId2Taxo.past.tsv
 		#Run a new version
 		python $SDIR/BuildVirusTaxo.py
 		#Check diff
-		IsDiff=`diff TaxId2Taxo.past.txt TaxId2Taxo.txt`
+		IsDiff=`diff TaxId2Taxo.past.tsv TaxId2Taxo.tsv`
 		if [ "$IsDiff" = "" ] ; then
 			echo "Same TaxId2Taxo file product, if AccId are accurate, no update needed"
 		else
@@ -29,11 +31,12 @@ if [ ! -f Taxo.accurate ] ; then
 			DoUpdate=true
 		fi	
 		#In all case, remove TaxId2Taxo.past
-		rm TaxId2Taxo.past.txt
+		rm TaxId2Taxo.past.tsv
 	else
 		python $SDIR/BuildVirusTaxo.py
 		DoUpdate=true
 	fi
+	rm *.dmp
 else
 	rm Taxo.accurate
 fi
@@ -45,8 +48,19 @@ if [ "$DoUpdate" = true ] ; then
 			rm ${Target}.past.md5
 		fi
 	done
-	#If update needed, redo AccId2Def.tsv
-	
+fi
+
+#Dwld Target files
+bash $SDIR/DownloadAccession.sh
+
+#If an update on AccId is needed, rebuild AccId2Def.tsv
+DoUpdate=false
+for Target in "${TargetArray[@]}"; do
+	if [ ! -f ${Target}.accurate ] ; then
+		DoUpdate=true
+	fi
+done
+if [ "$DoUpdate" = true ] ; then
 	#Retrieve all Viral Genbank file
 	ListFile=$(curl -l ${GENBANK_FTP})
 	ListTarget=$(echo "${ListFile}" | grep "$FlatFileTag")
@@ -61,11 +75,8 @@ if [ "$DoUpdate" = true ] ; then
 	gunzip *.gz
 	#process -> AccId2Def.tsv
 	python $SDIR/ExtractAccId2Definition.py
-	rm *.seq
+rm *.seq
 fi
-
-#Dwld Target files
-bash $SDIR/DownloadAccession.sh
 
 for Target in "${TargetArray[@]}"; do
 	if [ ! -f ${Target}.accurate ] ; then
@@ -84,7 +95,7 @@ fi
 
 #sort file for easy join in TINAP-workflow
 sort -k 1,1 nucl_gb.accession2taxo.tsv > nucl_gb.accession2taxo.sort.tsv
-mv nucl_gb.accession2taxo.sort.tsv > nucl_gb.accession2taxo.sort.tsv
+mv nucl_gb.accession2taxo.sort.tsv > nucl_gb.accession2taxo.tsv
 sort -k 1,1 prot.accession2taxo.tsv > prot.accession2taxo.sort.tsv
 mv prot.accession2taxo.sort.tsv > prot.accession2taxo.tsv
 

@@ -22,7 +22,7 @@ TAXDUMP_NAMES="names.dmp"
 SCIENTIFIC_NAME="scientific name"
 VIRAL_TYPE="V"
 
-OUTPUT_FILE="TaxId2Taxo.txt"
+OUTPUT_FILE="TaxId2Taxo.tsv"
 ########################################################################
 #Function 	
 def BuildTree(sFilePath):

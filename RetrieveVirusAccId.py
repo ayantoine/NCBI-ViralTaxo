@@ -38,7 +38,7 @@ TYPE_PRO="P"
 
 NUC_BASEFILE="nucl_gb.accession2taxid"
 PRO_BASEFILE="prot.accession2taxid"
-TAX_BASEFILE="TaxId2Taxo.txt"
+TAX_BASEFILE="TaxId2Taxo.tsv"
 DEF_BASEFILE="AccId2Def.tsv"
 
 NUC_LASTFILE="nucl_gb.accession2taxo.tsv"
