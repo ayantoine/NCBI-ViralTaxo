@@ -1,14 +1,18 @@
 # coding: utf-8
 """Python3.6"""
+# compatibility: python2.7, python2.6
 
 import sys
 from optparse import OptionParser
 import time
 
-sCurrentVersionScript="v1"
+sCurrentVersionScript="v2"
 iTime1=time.time()
 ########################################################################
 '''
+V2-2019/06/12
+Make code compatible for py2.6 (only version present on Agap)
+
 V1-2019/05/28
 Get the taxonomy for each viral tax-id from GenBank
 
@@ -86,7 +90,7 @@ def WriteLastFile(dData,dDef,sTag):
 	for sNewLine in open(BASEFILE[sTag]):
 		iCount+=1
 		if iCount%100000==0:
-			print("\t{}...".format(iCount))
+			print("\t"+str(iCount)+"...")
 		if bHeader:
 			bHeader=False
 			continue
@@ -101,7 +105,8 @@ def WriteLastFile(dData,dDef,sTag):
 			sDef="."
 		try:
 			tData=dData[iTaxId][:-1].split(";")
-			sToWriteLine="{}\t{}\t{}\t{}\t. .\t.\n".format(sAccession,tData[-1],";".join(tData[:-1]),sDef)
+			sToWriteLine=sAccession+"\t"+tData[-1]"\t"+";".join(tData[:-1])+"\t"+sDef+"\t. .\t.\n"
+			# sToWriteLine="{}\t{}\t{}\t{}\t. .\t.\n".format(sAccession,tData[-1],";".join(tData[:-1]),sDef)
 			if bFirstDebug:
 				print(sToWriteLine)
 				bFirstDebug=False
@@ -125,7 +130,7 @@ if __name__ == "__main__":
 ########################################################################    
 iTime2=time.time()
 iDeltaTime=iTime2-iTime1
-print("Script done: {}".format(iDeltaTime))
+print("Script done: "+str(iDeltaTime))
 
 
 

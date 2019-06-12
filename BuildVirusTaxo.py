@@ -1,12 +1,16 @@
 # coding: utf-8
 """Python3.6"""
+# compatibility: python2.7, python2.6
 
 import time
 
-sCurrentVersionScript="v1"
+sCurrentVersionScript="v2"
 iTime1=time.time()
 ########################################################################
 '''
+V2-2019/06/12
+Make code compatible for py2.6 (only version present on Agap)
+
 V1-2019/05/28
 Get the taxonomy for each viral tax-id from GenBank
 
@@ -32,14 +36,13 @@ def BuildTree(sFilePath):
 	for sNewLine in open(sFilePath):
 		iCount+=1
 		if iCount%100000==0:
-			print("\t{}...".format(iCount))
+			print("\t"+str(iCount)+"...")
 		sLine=sNewLine.strip()
 		sLine=sLine.replace("\t","")
 		tLine=sLine.split("|")
 		iTaxId=int(tLine[0])
 		iParentId=int(tLine[1])
 		sRank=tLine[2]
-		#dTree[iTaxId]={"Parent":iParentId,"Rank":sRank}
 		dTree[iTaxId]=iParentId
 	return dTree
 		
@@ -50,7 +53,7 @@ def BuildName(sFilePath):
 	for sNewLine in open(sFilePath):
 		iCount+=1
 		if iCount%100000==0:
-			print("\t{}...".format(iCount))
+			print("\t"+str(iCount)+"...")
 		sLine=sNewLine.strip()
 		sLine=sLine.replace("\t","")
 		tLine=sLine.split("|")
@@ -81,7 +84,7 @@ def WriteData(dNode,dName,setId,sFile):
 	for iTaxId in sorted(dNode):
 		iCount+=1
 		if iCount%100000==0:
-			print("\t{}/{}".format(iCount,len(dNode)))
+			print("\t"+str(iCount)+"/"+str(len(dNode)))
 		if iTaxId in setId:
 			FILE.write("{}\t{}\n".format(iTaxId,GetChain(iTaxId,dNode,dName)))
 	FILE.close()
@@ -93,7 +96,7 @@ def GetSetId(sFilePath):
 	for sNewLine in open(sFilePath):
 		iCount+=1
 		if iCount%100000==0:
-			print("\t{}...".format(iCount))
+			print("\t"+str(iCount)+"...")
 		sLine=sNewLine.strip()
 		tLine=sLine.split("\t")
 		sBiotype=tLine[0]
@@ -117,4 +120,4 @@ if __name__ == "__main__":
 ########################################################################    
 iTime2=time.time()
 iDeltaTime=iTime2-iTime1
-print("Script done: {}".format(iDeltaTime))
+print("Script done: "+str(iDeltaTime))
