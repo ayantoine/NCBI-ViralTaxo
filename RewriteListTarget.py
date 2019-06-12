@@ -26,10 +26,17 @@ GBK_FTP="ftp://ftp.ncbi.nlm.nih.gov/genbank/"
 #MAIN
 if __name__ == "__main__":
 	FILE=open("DownloadListTarget.sh","w")
+	FILE.write("#! /bin/bash")
+	FILE.write("set -e") #if a command crash, the script interrupt immediatly
 	for sNewLine in open(sys.argv[1]):
 		sLine=sNewLine.strip()
 		# sModifiedLine="echo \"Downloading {}...\"\ncurl {}{} --output {}\n".format(sLine,GBK_FTP,sLine,sLine)
-		sModifiedLine="echo \"Downloading "+sLine+"...\"\ncurl "+GBK_FTP+sLine+" --output {}\n"
+		sModifiedLine="if [ -f "+sLine+" ] ; then \n"
+		sModifiedLine+="\techo \"Downloading "+sLine+"...\"\n"
+		sModifiedLine+="\tcurl "+GBK_FTP+sLine+" --output {}\n"
+		sModifiedLine+="else\n"
+		sModifiedLine+="\techo \""+sLine+" already present, no download\"\n"
+		sModifiedLine+="fi\n"
 		FILE.write(sModifiedLine)
 	FILE.close()
 ########################################################################    

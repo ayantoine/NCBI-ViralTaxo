@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -e #if a command crash, the script interrupt immediatly
+
 NTarget="nucl_gb.accession2taxid"
 PTarget="prot.accession2taxid"
 TargetArray=(${NTarget} ${PTarget})

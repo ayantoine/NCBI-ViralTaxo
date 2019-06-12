@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -e #if a command crash, the script interrupt immediatly
+
 CatTarget="taxcat"
 DmpTarget="taxdump"
 TargetArray=(${CatTarget} ${DmpTarget})
