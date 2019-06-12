@@ -87,7 +87,7 @@ def WriteData(dNode,dName,setId,sFile):
 			print("\t"+str(iCount)+"/"+str(len(dNode)))
 		if iTaxId in setId:
 			# FILE.write("{}\t{}\n".format(iTaxId,GetChain(iTaxId,dNode,dName)))
-			FILE.write(str(iTaxId)"\t"+GetChain(iTaxId,dNode,dName)+"\n")
+			FILE.write(str(iTaxId)+"\t"+GetChain(iTaxId,dNode,dName)+"\n")
 	FILE.close()
 
 def GetSetId(sFilePath):
