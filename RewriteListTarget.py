@@ -33,7 +33,7 @@ if __name__ == "__main__":
 	for sNewLine in open(sys.argv[1]):
 		sLine=sNewLine.strip()
 		# sModifiedLine="echo \"Downloading {}...\"\ncurl {}{} --output {}\n".format(sLine,GBK_FTP,sLine,sLine)
-		sModifiedLine="if [ -f "+sLine+" ] ; then \n"
+		sModifiedLine="if [ ! -f "+sLine+" ] ; then \n"
 		sModifiedLine+="\techo \"Downloading "+sLine+"...\"\n"
 		sModifiedLine+="\tcurl "+GBK_FTP+sLine+" --output {}\n"
 		sModifiedLine+="else\n"
