@@ -1,4 +1,4 @@
-#! src/bash
+#! /bin/bash
 
 # bash PATH/TO/BuildVirusTaxo.sh PATH/TO/
 

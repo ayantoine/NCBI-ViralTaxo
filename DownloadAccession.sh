@@ -1,4 +1,4 @@
-#! src/bash
+#! /bin/bash
 
 NTarget="nucl_gb.accession2taxid"
 PTarget="prot.accession2taxid"

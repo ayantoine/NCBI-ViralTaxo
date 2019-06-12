@@ -1,4 +1,4 @@
-#! src/bash
+#! /bin/bash
 #DEPRECATED -> now include in BuildVirusTaxo.sh
 
 SDIR="/home/antoine/Documents/Python/TINAP"
