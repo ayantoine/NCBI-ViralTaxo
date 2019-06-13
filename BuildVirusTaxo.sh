@@ -4,7 +4,12 @@
 
 set -e #if a command crash, the script interrupt immediatly
 
-SDIR=$1
+if [ "$#" -eq 1 ] ; then
+	SDIR=$1
+else
+	SDIR=$(cd $( dirname ${BASH_SOURCE[0]}) && pwd )
+fi
+
 GENBANK_FTP="ftp://ftp.ncbi.nlm.nih.gov/genbank/"
 NTarget="nucl_gb.accession2taxid"
 PTarget="prot.accession2taxid"
