@@ -41,7 +41,7 @@ if [ ! -f Taxo.accurate ] ; then
 		python $SDIR/BuildVirusTaxo.py
 		DoUpdate=true
 	fi
-	#rm *.dmp
+	rm *.dmp
 else
 	rm Taxo.accurate
 fi
@@ -72,21 +72,21 @@ if [ "$DoUpdate" = true ] ; then
 	echo "$ListTarget" > ListTarget.txt
 	#Plan download
 	python $SDIR/RewriteListTarget.py ListTarget.txt
-	#rm ListTarget.txt
+	rm ListTarget.txt
 	#download
 	bash DownloadListTarget.sh
-	#rm DownloadListTarget.sh
+	rm DownloadListTarget.sh
 	#unzip
 	gunzip *.gz
 	#process -> AccId2Def.tsv
 	python $SDIR/ExtractAccId2Definition.py
-	#rm *.seq
+	rm *.seq
 fi
 
 for Target in "${TargetArray[@]}"; do
 	if [ ! -f ${Target}.accurate ] ; then
 		python $SDIR/RetrieveVirusAccId.py -t ${Target:0:1}
-		#rm ${Target}
+		rm ${Target}
 	fi
 	if [ -f ${Target}.accurate ] ; then
 		rm ${Target}.accurate
