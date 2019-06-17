@@ -52,7 +52,8 @@ BASEFILE={TYPE_NUC:NUC_BASEFILE,TYPE_PRO:PRO_BASEFILE}
 LASTFILE={TYPE_NUC:NUC_LASTFILE,TYPE_PRO:PRO_LASTFILE}
 
 BOOL_DEBUG=False
-DEBUG_TAXID=5076
+DEBUG_TAXID=1742422
+DEBUG_ACCID="ALL74044.1"
 ########################################################################
 #Function 	
 def ReadTaxFile(sFile):
@@ -64,8 +65,11 @@ def ReadTaxFile(sFile):
 		tLine=sLine.split("\t")
 		dData[int(tLine[0])]=tLine[1]
 		if bFirstDebug:
-			print(dData[int(tLine[0])])
+			print("First line :")
+			print(sNewLine)
 			bFirstDebug=False
+		if BOOL_DEBUG and int(tLine[0])==DEBUG_TAXID:
+			print(sNewLine)
 	return dData
 	
 def ReadAcc2DefFile(sFile):
@@ -77,8 +81,11 @@ def ReadAcc2DefFile(sFile):
 		tLine=sLine.split("\t")
 		dData[tLine[0]]=tLine[1]
 		if bFirstDebug:
-			print(dData[tLine[0]])
+			print("First line :")
+			print(sNewLine)
 			bFirstDebug=False
+		if BOOL_DEBUG and tLine[0]==DEBUG_ACCID:
+			print(sNewLine)
 	return dData
 
 def WriteLastFile(dData,dDef,sTag):
@@ -105,15 +112,19 @@ def WriteLastFile(dData,dDef,sTag):
 			sDef="."
 		try:
 			tData=dData[iTaxId][:-1].split(";")
-			sToWriteLine=sAccession+"\t"+tData[-1]"\t"+";".join(tData[:-1])+"\t"+sDef+"\t. .\t.\n"
+			sToWriteLine=sAccession+"\t"+tData[-1]+"\t"+";".join(tData[:-1])+"\t"+sDef+"\t. .\t.\n"
 			# sToWriteLine="{}\t{}\t{}\t{}\t. .\t.\n".format(sAccession,tData[-1],";".join(tData[:-1]),sDef)
 			if bFirstDebug:
+				print("First line :")
 				print(sToWriteLine)
 				bFirstDebug=False
 			FILE.write(sToWriteLine)
 		except KeyError:
 			#Not a viral taxid
+			if BOOL_DEBUG and iTaxId==DEBUG_TAXID:
+				print("TaxId "+str(iTaxId)+" for accId "+sAccession+" is not a viral taxid")
 			continue
+	FILE.close()
 
 ########################################################################
 #MAIN

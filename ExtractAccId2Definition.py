@@ -24,6 +24,7 @@ TAG=".seq"
 DEFINITION="DEFINITION"
 ACCESSION="ACCESSION"
 VERSION="VERSION"
+PROTEIN_ID="/protein_id="
 OUTPUT="AccId2Def.tsv"
 ########################################################################
 #MAIN
@@ -40,14 +41,17 @@ if __name__ == "__main__":
 				sLine=sNewLine.strip()
 				if DEFINITION in sLine:
 					bDef=True
+					sDef=""
 					sLine=sLine.replace(DEFINITION+"  ","")
 				elif ACCESSION in sLine:
 					bDef=False
 				elif VERSION in sLine:
 					sAcc=sLine.split(" ")[-1]
 					FILE.write(sAcc+"\t"+sDef+"\n")
-					bDef=False
-					sDef=""
+					sAcc=""
+				elif PROTEIN_ID in sLine:
+					sAcc=sLine.split('"')[-2]
+					FILE.write(sAcc+"\t"+sDef+"\n")
 					sAcc=""
 				if bDef:
 					if sDef!="":

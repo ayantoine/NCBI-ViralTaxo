@@ -13,16 +13,6 @@ NeedUpdate=false
 for Target in "${TargetArray[@]}"; do
 	#Download checksum file
 	curl ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/${Target}.tar.gz.md5 --output ${Target}.md5
-	#curlExitcode=`echo "$?"`
-	#echo "$curlExitcode"
-	
-	#If curl command fail, exit
-	#if [ ! 0 -eq $curlExitcode ] ; then
-		##echo "0 = $curlExitcode"
-		#exit 1
-	#else
-		#echo "0 = $curlExitcode"
-	#fi
 	
 	#Load checksum
 	CheckRef=`cat ${Target}.md5`
@@ -49,16 +39,6 @@ if [ "$NeedUpdate" = true ] ; then
 	for Target in "${TargetArray[@]}"; do
 		#Download
 		curl ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/${Target}.tar.gz --output ${Target}.tar.gz
-		#curlExitcode=`echo "$?"`
-		#echo "$curlExitcode"
-	
-		#If curl command fail, exit
-		#if [ ! 0 -eq $curlExitcode ] ; then
-			##echo "0 = $curlExitcode"
-			#exit 1
-		##else
-			##echo "0 = $curlExitcode"
-		#fi
 		
 		#Checksum verification
 		echo "------CheckSum verification------"
