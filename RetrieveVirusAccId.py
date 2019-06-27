@@ -45,8 +45,8 @@ PRO_BASEFILE="prot.accession2taxid"
 TAX_BASEFILE="TaxId2Taxo.tsv"
 DEF_BASEFILE="AccId2Def.tsv"
 
-NUC_LASTFILE="nucl_gb.accession2taxo.tsv"
-PRO_LASTFILE="prot.accession2taxo.tsv"
+NUC_LASTFILE="nucl_gb.accession2taxo."+time.strftime("%Y-%m-%d")+".tsv"
+PRO_LASTFILE="prot.accession2taxo."+time.strftime("%Y-%m-%d")+".tsv"
 
 BASEFILE={TYPE_NUC:NUC_BASEFILE,TYPE_PRO:PRO_BASEFILE}
 LASTFILE={TYPE_NUC:NUC_LASTFILE,TYPE_PRO:PRO_LASTFILE}
