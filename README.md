@@ -4,14 +4,14 @@ Retrieve taxonomy and Definition for each viral AccessionID.Version from NCBI
 The workflow work step by step and compare to last file version in order to minimize download and computation
 
 # Usage
-bash PATH/TO/BuildViralTaxo.sh PATH/TO/
+bash PATH/TO/BuildViralTaxo.sh (PATH/TO/)
 
 PATH/TO: Path to the directory that contains all scripts. Can (must?) be different to the directory where to store the taxonomy
 
 # Output
-nucl_gb.accession2taxo.tsv: tsv file, col1 Prot AccId, col2 organism, col3 taxonomy, col4 NCBI definition if avalaible (default "."), col5 ". .", col6 "."
+nucl_gb.accession2taxo.DATE.tsv: tsv file, col1 Prot AccId, col2 organism, col3 taxonomy, col4 NCBI definition if avalaible (default "."), col5 ". .", col6 "."
 
-prot.accession2taxo.tsv: tsv file, col1 Prot AccId, col2 organism, col3 taxonomy, col4 NCBI definition if avalaible (default "."), col5 ". .", col6 "." 
+prot.accession2taxo.DATE.tsv: tsv file, col1 Prot AccId, col2 organism, col3 taxonomy, col4 NCBI definition if avalaible (default "."), col5 ". .", col6 "." 
 
 TaxId2Taxo.tsv: tsv file, col1 TaxId, col2 associated taxonomy
 
